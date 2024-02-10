@@ -1,0 +1,17 @@
+Install EntityFramework Core with Dependenceies:
+
+1)Microsoft.EntityFrameworkCore
+2)Microsoft.EntityFrameworkCore.SqlServer
+3)Microsoft.EntityFrameworkCore.Tools
+
+
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.SqlServer.Design
+Microsoft.EntityFrameworkCore.Tools
+
+
+Then In Package Console Write For Code First Library:
+
+Scaffold-DbContext "Server=AMARALI\SQLEXPRESS;Database=BMS;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+Scaffold-DbContext "Server=AMARALI\SQLEXPRESS;Database=BMS;Trusted_Connection=True;User ID=sa;Password=inter123net;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
