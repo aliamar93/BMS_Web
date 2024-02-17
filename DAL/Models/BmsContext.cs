@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models;
@@ -15,6 +16,32 @@ public partial class BmsContext : DbContext
     {
     }
 
+    //public virtual void Update(T entity, params Expression<Func<T, object>>[] updatedProperties)
+    //{
+    //    //dbEntityEntry.State = EntityState.Modified; --- I cannot do this.
+
+    //    //Ensure only modified fields are updated.
+    //    var dbEntityEntry = DbContext.Entry(entity);
+    //    if (updatedProperties.Any())
+    //    {
+    //        //update explicitly mentioned properties
+    //        foreach (var property in updatedProperties)
+    //        {
+    //            dbEntityEntry.Property(property).IsModified = true;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        //no items mentioned, so find out the updated entries
+    //        foreach (var property in dbEntityEntry.OriginalValues.PropertyNames)
+    //        {
+    //            var original = dbEntityEntry.OriginalValues.GetValue<object>(property);
+    //            var current = dbEntityEntry.CurrentValues.GetValue<object>(property);
+    //            if (original != null && !original.Equals(current))
+    //                dbEntityEntry.Property(property).IsModified = true;
+    //        }
+    //    }
+    //}
     public virtual DbSet<AmEntryLog> AmEntryLogs { get; set; }
 
     public virtual DbSet<AmListPermission> AmListPermissions { get; set; }
@@ -41,10 +68,9 @@ public partial class BmsContext : DbContext
         {
             entity.ToTable("AM_EntryLog");
 
-            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.SUId).HasColumnName("S_U_ID");
             entity.Property(e => e.TimeIn).HasColumnType("datetime");
             entity.Property(e => e.TimeOut).HasColumnType("datetime");
-            entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<AmListPermission>(entity =>
@@ -119,11 +145,5 @@ public partial class BmsContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    
 }
-//public static class DBContextExtension 
-//{
-//    public static BmsContext ExcludeAll(this BmsContext bmsContext)
-//    { 
-//        bmsContext.
-//    }
-//}
